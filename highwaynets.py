@@ -2,11 +2,14 @@ import theano
 import theano.tensor as T
 import numpy as np
 
+
 class HighwayNetwork:
+
 	""" Implementation of Highway network from paper
         Highway Networks http://arxiv.org/abs/1505.00387
     """
-	def __init__(self, x=None, labels=None, theano_input = None, num_vis=100, num_hid=50, numpy_rng=None, theano_rng=None,lrate=0.001, , momentum=0.9, tied_weights=True, cost_func='ce'):
+
+	def __init__(self, x=None, labels=None, theano_input=None, num_vis=100, num_hid=50, numpy_rng=None, theano_rng=None, lrate=0.001, , momentum=0.9, tied_weights=True, cost_func='ce'):
 		'''
 			x - input data in simple numpy ndarray format
             y - labels
@@ -33,11 +36,11 @@ class HighwayNetwork:
 			self.theano_rng = RandomStreams()
         self.y = T.matrix('x')
         self.labels = labels
-		w_init = 4 * np.sqrt(6./(num_hid + num_vis))
+		w_init = 4 * np.sqrt(6. / (num_hid + num_vis))
 		par = ParametersInit(self.numpy_rng, -w_init, w_init)
 	    self.Wt = par.get_weights((num_vis, num_hid),'Wt')
 	    self.Wc = par.get_weights((num_vis, num_hid),'Wc')
-		#Bias init as zero
+		# Bias init as zero
 		self.bh = theano.shared(np.asarray(np.zeros(num_hid), dtype=theano.config.floatX), name='bh')
 		self.bh2 = theano.shared(np.asarray(np.zeros(num_hid), dtype=theano.config.floatX), name='bh2')
 		self.bv = theano.shared(np.asarray(np.zeros(num_vis), dtype=theano.config.floatX), name='bv')
